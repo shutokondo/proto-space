@@ -1,0 +1,29 @@
+= form_for current_user, html: { :class => 'container user-new' } do |f|
+  .col-md-8.col-md-offset-2
+    %header.row.user-nav.row
+      .col-md-12
+        %h2 Edit Profile
+        .user-name_image.row
+          .user-name.col-md-10
+            = f.text_field :name, placeholder: "Username"
+          .user-image.col-md-2{:style => 'background-image: url(#{current_user.avatar.to_s});'}
+            %button.btn.btn-primary Change image
+            = f.file_field :avatar
+        = f.text_field :email, placeholder: "E-Mail", class: "user-email"
+        = f.password_field :password, placeholder: "Password", class: "user-password"
+      .col-md-12
+        %h4 Member of
+        .user-user-member.row
+          .user-name.col-md-12
+            = f.text_field :member, placeholder: "Member"
+        %h4 Profile
+        .user-user-profile.row
+          .user-name.col-md-12
+            = f.text_area :profile, cols: "30", rows: "4", placeholder: "profile"
+        %h4 Works 
+        .user-name_image.row
+          .user-name.col-md-12
+            = f.text_area :works, cols: "30", rows: "4", placeholder: "Works"
+    .row.text-center.user-btn
+      %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} Save
+      }
