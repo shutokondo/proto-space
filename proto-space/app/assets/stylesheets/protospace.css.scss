@@ -278,6 +278,10 @@ body {
   background-size:  100% auto;
   padding: 80px 0;
   margin-bottom: 0;
+
+  .container {
+    text-align: center;
+  }
 }
 
 .filter-nav {
@@ -289,9 +293,12 @@ body {
 }
 
 .proto-content {
+  margin-bottom: 70px;
+
   .thumbnail {
     border-radius: 0;
     padding: 0;
+    margin-bottom: 0;
   }
   
   h3 {
