@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root "prototypes#index"
   resources :users
   resources :prototypes
+  resources :likes
 end

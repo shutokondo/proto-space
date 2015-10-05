@@ -6,6 +6,12 @@ class PrototypesController < ApplicationController
   end
 
   def show
+    @like = Like.find_by(user_id: current_user.id, prototype_id: params[:id]) if user_signed_in?
+    if @like == nil
+      @like = Like.new
+    else
+      @like
+    end
   end
 
   def new

@@ -13,10 +13,7 @@
               = @prototype.user.works
 
     .col-md-6.text-right
-      %button.btn.btn-default
-        = image_tag("icon_heart.svg")
-        Like
-        %span.num 20
+      = render partial: "likes/like_button"
   .row
     .col-md-9
       = image_tag(@prototype.main_image.name.to_s, :class => 'img-responsive', style: "width:100%;")
@@ -86,3 +83,28 @@
             %textarea.form-control{:placeholder => "Your comments", :rows => "3"}
           .form-group.col-md-2
             %button.btn.btn-primary Comment
+
+:javascript
+  var $heart = $("#like img");
+  $("#like").on("click", function() {
+    var $likeSum = $("#like-sum");
+    like_function(#{@prototype.id}, $(this), $heart, $likeSum)
+  });
+
+  function like_function(id, button, heart, sum) {
+    if (button.hasClass("decrement")) {
+      $.ajax({url: "/likes", type: "POST", data: {prototype_id: id, dataType: "json"}})
+      .done(function(data) {
+        button.removeClass("decrement").addClass("increment")
+        heart.attr("src", "/assets/icon_heart_red.svg")
+        sum.text(data["count"])
+      });
+    } else {
+      $.ajax({url: "/likes/" + id, type: "PATCH", data: {prototype_id: id, dataType: "json"}})
+      .done(function(data) {
+        button.removeClass("increment").addClass("decrement")
+        heart.attr("src", "/assets/icon_heart.svg")
+        sum.text(data["count"])
+      })
+    }
+  }

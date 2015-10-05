@@ -1,5 +1,6 @@
 class Prototype < ActiveRecord::Base
   belongs_to :user
+  has_many :likes
   has_many :prototype_images, dependent: :delete_all
 
   accepts_nested_attributes_for :prototype_images, reject_if: :reject_image
@@ -15,4 +16,9 @@ class Prototype < ActiveRecord::Base
   def reject_image(attributed)
     attributed["name"].blank?
   end
+
+  def liked?(user)
+    likes.exists?(user_id: user.id)
+  end
+
 end
