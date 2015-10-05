@@ -12,6 +12,8 @@ class PrototypesController < ApplicationController
     else
       @like
     end
+    @comment = current_user.comments.new
+    @comments = @prototype.comments
   end
 
   def new
