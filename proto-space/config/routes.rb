@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resources :likes
   resources :comments
   resources :tags
+  resources :popular
+  resources :newest
 end
