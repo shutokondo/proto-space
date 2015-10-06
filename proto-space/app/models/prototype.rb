@@ -6,6 +6,8 @@ class Prototype < ActiveRecord::Base
 
   accepts_nested_attributes_for :prototype_images, reject_if: :reject_image
 
+  acts_as_taggable
+
   def main_image
     prototype_images.main.first!
   end

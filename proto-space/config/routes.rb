@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :prototypes
   resources :likes
   resources :comments
+  resources :tags
 end

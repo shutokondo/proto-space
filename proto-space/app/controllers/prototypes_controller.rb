@@ -12,7 +12,7 @@ class PrototypesController < ApplicationController
     else
       @like
     end
-    @comment = current_user.comments.new
+    @comment = Comment.new
     @comments = @prototype.comments
   end
 
@@ -22,6 +22,7 @@ class PrototypesController < ApplicationController
   end
 
   def create
+    binding.pry
     prototype = current_user.prototypes.new(proto_params)
     if prototype.save
       redirect_to action: :index, notice: "You have successfully created prototype."
@@ -54,10 +55,10 @@ class PrototypesController < ApplicationController
   end
 
   def proto_params
-    params.require(:prototype).permit(:title, :catchcopy, :concept, prototype_images_attributes: [:name, :property])
+    params.require(:prototype).permit(:title, :catchcopy, :concept, tag_list: [], prototype_images_attributes: [:name, :property])
   end
 
   def update_params
-    params.require(:prototype).permit(:id, :title, :catchcopy, :concept, prototype_images_attributes: [:name, :property])
+    params.require(:prototype).permit(:id, :title, :catchcopy, :concept, tag_list: [], prototype_images_attributes: [:name, :property])
   end
 end
