@@ -437,6 +437,11 @@ body {
       filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
       cursor: pointer;
     }
+
+    #main_preview {
+      width: 760px;
+      height:500px;
+    }
   }
   
   .list-group-item {
@@ -459,6 +464,11 @@ body {
         filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
         cursor: pointer;
       }      
+
+      #sub_0_preview, #sub_1_preview, #sub_2_preview {
+        width: 100%;
+        height: 100%;
+      }
     }
     
     .image-upload-plus {
@@ -472,6 +482,11 @@ body {
         padding-top: 50px;
         display: inline-block;
       }
+    }
+
+    #image_0_uploader {
+      height: 200px;
+      margin: 0;
     }
   }
   .proto-btn {
