@@ -7,11 +7,6 @@ class PrototypesController < ApplicationController
 
   def show
     @like = Like.find_by(user_id: current_user.id, prototype_id: params[:id]) if user_signed_in?
-    if @like == nil
-      @like = Like.new
-    else
-      @like
-    end
     @comment = Comment.new
     @comments = @prototype.comments
   end
@@ -26,20 +21,21 @@ class PrototypesController < ApplicationController
     if prototype.save
       redirect_to action: :index, notice: "You have successfully created prototype."
     else
-      render :new
+      render :new, warning: "You have unfortunately failed to create."
     end
   end
 
   def edit
-    @prototype_image = @prototype.prototype_images.build
+    redirect_to root_path, danger: "Access denied." unless @prototype.user_id == current_user.id
   end
 
   def update
+    binding.pry
     if @prototype.update(update_params)
       @prototype.prototype_images
       redirect_to action: :index, success: "You have successfully updated prototype."
     else
-      render :edit, warning: "You have unfortunately failed to create."
+      render :edit, warning: "You have unfortunately failed to update."
     end
   end
 
@@ -58,6 +54,6 @@ class PrototypesController < ApplicationController
   end
 
   def update_params
-    params.require(:prototype).permit(:id, :title, :catchcopy, :concept, tag_list: [], prototype_images_attributes: [:name, :property])
+    params.require(:prototype).permit(:id, :title, :catchcopy, :concept, tag_list: [], prototype_images_attributes: [:name, :property, :id])
   end
 end
