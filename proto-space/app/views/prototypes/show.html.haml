@@ -9,7 +9,7 @@
             = @prototype.title
           .proto-user
             = link_to "by #{@prototype.user.name}", user_path(@prototype.user)
-            %span.degree 
+            %span.degree
               = @prototype.user.works
 
     .col-md-6.text-right
@@ -60,21 +60,3 @@
     var $likeSum = $("#like-sum");
     like_function(#{@prototype.id}, $(this), $heart, $likeSum)
   });
-
-  function like_function(id, button, heart, sum) {
-    if (button.hasClass("decrement")) {
-      $.ajax({url: "/likes", type: "POST", data: {prototype_id: id, dataType: "json"}})
-      .done(function(data) {
-        button.removeClass("decrement").addClass("increment")
-        heart.attr("src", "/assets/icon_heart_red.svg")
-        sum.text(data["count"])
-      });
-    } else {
-      $.ajax({url: "/likes/" + id, type: "PATCH", data: {prototype_id: id, dataType: "json"}})
-      .done(function(data) {
-        button.removeClass("increment").addClass("decrement")
-        heart.attr("src", "/assets/icon_heart.svg")
-        sum.text(data["count"])
-      })
-    }
-  }
