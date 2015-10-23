@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    redirect_to root_path, danger: "Access denied", unless @user.id == current_user.id
   end
 
   def update
