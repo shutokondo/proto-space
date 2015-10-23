@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class Prototypes::CommentsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
 
   def create
@@ -8,6 +8,7 @@ class CommentsController < ApplicationController
 
 
   private
+  
   def comment_params
     params.require(:comment).permit(:prototype_id, :comment).merge(user_id: current_user.id)
   end
