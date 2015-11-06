@@ -1,4 +1,4 @@
-- if user_signed_in? && @prototype.liked?(current_user)
+- if @prototype.user_like(@prototype)
   %button#like.btn.btn-default.btn-like.increment
     = image_tag("icon_heart_red.svg")
     Like

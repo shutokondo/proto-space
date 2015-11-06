@@ -6,6 +6,8 @@ class Prototype < ActiveRecord::Base
 
   accepts_nested_attributes_for :prototype_images, reject_if: :reject_image
 
+  validates_presence_of :title, :prototype_images
+
   acts_as_taggable
 
   def main_image
@@ -20,8 +22,8 @@ class Prototype < ActiveRecord::Base
     attributed["name"].blank?
   end
 
-  def liked?(user)
-    likes.exists?(user_id: user.id)
+  def user_like(prototype)
+    user.likes.exists?(prototype_id: prototype)
   end
 
 end
