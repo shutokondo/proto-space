@@ -1,14 +1,24 @@
+- if @prototype.errors.any?
+  .alert.alert-danger
+    %h2
+      = @prototype.errors.count
+      件のエラーが発生しました
+    %ul
+      - @prototype.errors.full_messages.each do |message|
+        %li
+          = message
+
 .container.proto-new
   = form_for(@prototype) do |f|
     .col-md-8.col-md-offset-2
       %header.row.user-nav.row
         .col-md-12
-          = f.text_field :title, required: true, placeholder: "Title"
+          = f.text_field :title, placeholder: "Title"
       .row
         .col-md-12
           .cover-image-upload
             = f.fields_for :prototype_images, @prototype.main_image do |image|
-              = image.file_field :name, required: true
+              = image.file_field :name
               = image.hidden_field :property, value: "main"
         .col-md-12
           %ul.proto-sub-list.list-group
