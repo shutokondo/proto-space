@@ -1,3 +1,5 @@
+%p{ id: "notice" }
+= notice
 .container.proto-page
   %header.row.user-nav
     .col-md-6
@@ -21,7 +23,7 @@
       %ul.proto-sub-list.list-group
         - @prototype.sub_images.each do |image|
           %li.list-group-item
-            = image_tag(image.name.to_s, :class => 'img-responsive')
+            = image_tag(image.name, :class => 'img-responsive')
   .row.proto-description
     .col-md-3
       %h4 Catch Copy
@@ -45,7 +47,7 @@
       .media#comments
         = render partial: "comment.html.haml", collection: @comments
       - if user_signed_in?
-        = form_for @comment, html: { class: 'form-inline' }, remote: true do |f|
+        = form_for @comment, url: prototypes_comments_path, html: { class: 'form-inline' }, remote: true do |f|
           %h4 Write a comment
           .row
             .form-group.col-md-10
