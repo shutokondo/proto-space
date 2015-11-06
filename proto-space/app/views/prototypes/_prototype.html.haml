@@ -13,11 +13,12 @@
         - prototype.tag_list.each do |tag|
           %li
             = link_to tag, tag_path(tag), class: "btn btn-default"
-  .dropdown.drop_menu_location
-    %button.btn.btn-primary.dropdown-toggle#dropdownMenu{type: "button", data: {toggle: "dropdown"}}
-      Edit/Delete
-    %ul.dropdown-menu{aria: {labelledby: "dropdownMenu1"}}
-      %li
-        = link_to "Delete", prototype_path(prototype), method: :delete
-      %li
-        = link_to "Edit", edit_prototype_path(prototype)
+  - if user_signed_in? && current_user.id == prototype.user_id
+    .dropdown.drop_menu_location
+      %button.btn.btn-primary.dropdown-toggle#dropdownMenu{type: "button", data: {toggle: "dropdown"}}
+        Edit/Delete
+      %ul.dropdown-menu{aria: {labelledby: "dropdownMenu1"}}
+        %li
+          = link_to "Delete", prototype_path(prototype), method: :delete
+        %li
+          = link_to "Edit", edit_prototype_path(prototype)
