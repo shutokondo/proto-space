@@ -17,31 +17,32 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    prototype = current_user.prototypes.new(proto_params)
-    if prototype.save
-      redirect_to action: :index, notice: "You have successfully created prototype."
+    @prototype = current_user.prototypes.new(proto_params)
+    if @prototype.save
+      redirect_to action: :index, flash: { notice: "You have successfully created prototype." }
     else
-      render :new, warning: "You have unfortunately failed to create."
+      @prototype.prototype_images.build
+      render :new, flash: { warning: "You have unfortunately failed to create." }
     end
   end
 
   def edit
-    redirect_to root_path, danger: "Access denied." unless @prototype.user_id == current_user.id
+    redirect_to root_path, flash: { danger: "Access denied." } unless @prototype.user_id == current_user.id
   end
 
   def update
     binding.pry
     if @prototype.update(update_params)
       @prototype.prototype_images
-      redirect_to action: :index, success: "You have successfully updated prototype."
+      redirect_to action: :index, flash: { success: "You have successfully updated prototype." }
     else
-      render :edit, warning: "You have unfortunately failed to update."
+      render :edit, flash: { warning: "You have unfortunately failed to update." }
     end
   end
 
   def destroy
     @prototype.destroy
-    redirect_to :root, success: "You have successfully destroyed prototype."
+    redirect_to :root, flash: { success: "You have successfully destroyed prototype." }
   end
 
   private
